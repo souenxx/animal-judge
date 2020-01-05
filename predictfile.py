@@ -9,8 +9,8 @@ import numpy as np
 import warnings
 
 warnings.simplefilter('ignore')
-classes=["ニホンザル","イノシシ","カラス","ニワトリ","クマ","ゾウ","ウサギ"]
-#classes=["monkey","boar","crow","chicken","bear","elephant","giraffe","lion","mouse","rabbit"]
+classes=["ニホンザル","イノシシ","カラス"]
+#classes=["monkey","boar","crow"]
 
 num_classes=len(classes)
 image_size=50
@@ -44,7 +44,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             filepath = os.path.join(app.config['UPLOAD_FOLDER'],filename)
 
-            model=load_model('./animal_cnn_aug_add.h5')
+            model=load_model('./animal_cnn_aug.h5')
 
             image=Image.open(filepath)
             image=image.convert('RGB')
@@ -62,7 +62,6 @@ def upload_file():
             #return render_template('upload.html')
             return render_template('index.html',flag=flag)
             #return classes[predicted]+str(percentage)+"%"
-
 
             #return redirect(url_for('uploaded_file',filename=filename))
     return render_template('upload.html')
