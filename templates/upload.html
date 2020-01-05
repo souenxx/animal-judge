@@ -1,0 +1,124 @@
+
+{% extends "base.html" %}
+{% block body %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+  <style>
+      .imagePreview{
+        width: 100%;
+        height: 300px;
+        background-position: center center;
+        background-size: cover;
+        -webkit-box-shadow: 0 0 1px 1px rgba(0,0,0,.3);
+        display: inline-block;
+      }
+      .container{
+        width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .cover {
+        margin-top: -20px;
+        margin-bottom: 20px;
+        margin-left: 100px;
+        margin-right: 10px;
+        width: 450px;
+        height: 620px;
+        background: url("/static/images/job_shiikuin_man_annai.png") center center no-repeat;
+        background-size: cover;
+      }
+      .cover .cover-inner {
+        height: 100%;
+        margin: auto;
+        display: table;
+      }
+      .cover .cover-inner .cover-contents {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        position: relative;
+      }
+      .cover .cover-inner .cover-contents h1 {
+        margin: 0 0 20px 0;
+        color: #000;
+        font-weight: bold;
+        letter-spacing: 0.15em;
+      }
+      .item{
+        float: left;
+      }
+      #lis ul li{
+        display: inline;
+      }
+      #up{
+        margin-left: 100px;
+        margin-left: 100px;
+      }
+
+  </style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<div id="lis">
+<ul class="container" style="list-style: none;">
+
+  <li class="item">
+    <div class="cover">
+      <div class="cover-inner">
+        <div class="cover-contents">
+          <h1>画像から動物を
+            <br>
+            判定します</h1>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="item" id="up">
+    <form method = post enctype = multipart/form-data>
+        <div class="imagePreview"></div>
+        <div class="input-group">
+            <label class="input-group-btn">
+                <span class="btn btn-primary">
+                    Choose File<input type=file name=file style="display:none" class="uploadFile">
+                </span>
+            </label>
+            <input type=text class="form-control" readonly="">
+            <p><input type=submit value=Upload class="form-control">
+        </div>
+    </form>
+  </li>
+</ul>
+</div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+        $(document).on('change', ':file', function() {
+            var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.parent().parent().next(':text').val(label);
+
+            var files = !!this.files ? this.files : [];
+            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+            if (/^image/.test( files[0].type)){ // only image file
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+                reader.onloadend = function(){ // set image data as background of div
+                    input.parent().parent().parent().prev('.imagePreview').css("background-image", "url("+this.result+")");
+                }
+            }
+        });
+        </script>
+</div>
+{% endblock %}

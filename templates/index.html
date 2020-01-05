@@ -1,0 +1,51 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/purple/pace-theme-loading-bar.css" />
+
+
+<style>
+  .pace-running .wrap{
+    display:none;
+  }
+  #content{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+<script>
+  $(function(){
+    Pace.on('done',function(){
+       $('.wrap').fadeIn();
+    });
+  });
+</script>
+
+{% extends "base.html" %}
+{% block body %}
+
+<div class="wrap" id="content">
+{% if flag==0 %}
+  <img src="/static/images/nihonzaru.png" alt="ニホンザル" title="ニホンザルですね">
+  <p>ニホンザルですね</p>
+{% elif flag==1 %}
+  <img src="/static/images/inoshishi.png" alt="いのしし" title="イノシシですね">
+  <p>イノシシですね</p>
+{% elif flag==2 %}
+  <img src="/static/images/karasu.png" alt="いのしし" title="イノシシですね">
+  <p>カラスですね</p>
+{% elif flag==3 %}
+  <img src="/static/images/remake_tori.png" alt="いのしし" title="イノシシですね">
+  <p>ニワトリですね</p>
+{% elif flag==4 %}
+  <img src="/static/images/kuma.png" alt="いのしし" title="イノシシですね">
+  <p>クマですね</p>
+{% elif flag==5 %}
+  <img src="/static/images/zou.png" alt="いのしし" title="イノシシですね">
+  <p>ゾウですね</p>
+{% else %}
+  <img src="/static/images/usagi.png" alt="カラス" title="カラスですね">
+  <p>ウサギですね</p>
+{% endif %}
+<a class="btn btn-primary" href="/" role="button">戻る</a>
+</div>
+{% endblock %}
